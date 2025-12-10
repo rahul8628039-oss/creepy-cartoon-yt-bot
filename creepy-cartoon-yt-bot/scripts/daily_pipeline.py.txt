@@ -1,0 +1,5 @@
+import os
+os.system("python scripts/generate.py")
+os.system("python scripts/assemble_video.py")
+os.system("python scripts/make_thumbnail.py")
+os.system("python scripts/upload_youtube.py")
