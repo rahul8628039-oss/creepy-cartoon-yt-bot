@@ -1,0 +1,30 @@
+name: Creepy Cartoon YT Bot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * *"
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - run: sudo apt-get install -y ffmpeg
+
+      - run: pip install -r requirements.txt
+
+      - run: python scripts/daily_pipeline.py
+        env:
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          DEFAULT_TITLE: "Amazing Cartoon Video"
+          DEFAULT_DESCRIPTION: "Generated automatically"
+          DEFAULT_TAGS: "cartoon,ai,funny"
